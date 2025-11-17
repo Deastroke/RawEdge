@@ -1,0 +1,355 @@
+.detalle-container {
+  padding-top: 0px; /* suficiente para no pegarse al navbar */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+
+.detalle-producto {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 1200px;
+}
+
+.detalle-imagen img {
+  width: 200px;
+  height: auto;
+  border-radius: 12px;
+}
+
+.detalle-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-info h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.descripcion {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.opciones {
+  display: flex;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.opciones label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.color select,
+.cantidad input {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.detalle-compra {
+  text-align: right;
+  min-width: 250px;
+}
+
+.precio {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.btn-agregar {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-agregar:hover {
+  background-color: #333;
+}
+
+.envio {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.envio p {
+  margin: 5px 0;
+}
+
+
+.detalle-container {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column; /* 🔹 IMPORTANTE: para apilar secciones verticalmente */
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.detalle-producto {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 1200px;
+  margin-bottom: 50px; /* 🔹 separa del bloque de similares */
+}
+
+
+/* 📱 SOLO RESPONSIVE PARA CELULAR (imagen 160px) */
+@media (max-width: 600px) {
+  .detalle-producto {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .detalle-imagen img {
+    width: 160px; /* 🔹 Imagen un poco más grande */
+    height: auto;
+  }
+
+  .detalle-info h2 {
+    font-size: 20px;
+  }
+
+  .descripcion {
+    font-size: 14px;
+  }
+
+  .opciones {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .precio {
+    font-size: 20px;
+  }
+
+  .btn-agregar {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .detalle-compra {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+
+
+
+.similares-container {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.similares-grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px;
+  scroll-behavior: smooth;
+}
+
+.similares-item {
+  flex: 0 0 auto;
+  width: 180px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.similares-item:hover {
+  transform: scale(1.05);
+}
+
+.similares-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+
+/* 📱 RESPONSIVE PARA CELULAR */
+@media (max-width: 600px) {
+  .similares-grid {
+    gap: 15px;
+    padding: 10px 5px;
+  }
+
+  .similares-item {
+    width: 140px; /* 🔹 Más pequeño para celulares */
+  }
+
+  .similares-item img {
+    height: 140px; /* 🔹 Tamaño reducido proporcional */
+  }
+}
+
+
+
+
+
+.footer {
+  width: 100%;
+  background-color: #f5f5f5; /* gris claro estilo AliExpress */
+  color: #333;               /* texto oscuro para buen contraste */
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px; /* limita el contenido central */
+  margin: 0 auto;    /* centra horizontalmente */
+}
+
+.footer-column {
+  flex: 1 1 200px;  /* crece y encoge según el espacio, mínimo 200px */
+  margin: 10px;
+}
+
+.footer-column h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.footer-apps img,
+.footer-socials img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  border-top: 3px solid #ccc; /* línea más gruesa y visible */
+  margin-top: 30px;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.color-talla {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.color select,
+.talla select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+
+.btn-pagar button {
+  background-color: #180ed8; /* azul */
+  color: #fff;               /* letras blancas */
+  padding: 2px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.btn-pagar button:hover {
+  background-color: #0f06b2;
+}
+
+.btn-pagar button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(24, 14, 216, 0.3);
+}
+
+
+/* Footer responsivo */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;  /* apila las columnas verticalmente */
+    align-items: center;     /* centra todas las columnas */
+    gap: 30px;
+  }
+
+  .footer-column {
+    text-align: center;      /* centra títulos y listas */
+  }
+
+  .footer-apps {
+    justify-content: center; /* centra los íconos de apps */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 30px 20px 20px 20px; /* reduce padding */
+  }
+
+  .footer-apps img {
+    width: 50px; /* reduce tamaño de iconos en móviles */
+  }
+
+  .footer-socials img {
+    width: 35px;
+    margin-right: 10px;
+  }
+}

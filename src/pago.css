@@ -1,0 +1,157 @@
+/* Contenedor principal */
+.pago-container {
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Formulario de pago */
+.pago-form label {
+  display: block;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.pago-form input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Filas dentro del formulario */
+.pago-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.pago-row div {
+  flex: 1 1 48%; /* ocupa casi la mitad y se ajusta en móviles */
+}
+
+/* Botón de pagar */
+.pago-form button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background-color: #000;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pago-form button:hover {
+  background-color: #222;
+}
+
+/* Navbar de la página de pago */
+.navbar-pago {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo-pago img {
+  height: 50px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Título con icono */
+.titulo-pago {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.icono-tarjeta {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+/* Página wrapper */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Footer */
+.footer {
+  background-color: #f2f2f2;
+  padding: 40px 20px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .pago-container {
+    padding: 30px 20px;
+    max-width: 90%;
+  }
+
+  .pago-row div {
+    flex: 1 1 100%;
+  }
+
+  .titulo-pago {
+    font-size: 1.3rem;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .icono-tarjeta {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pago-container {
+    padding: 20px 15px;
+    border-radius: 10px;
+  }
+
+  .pago-form input {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .pago-form button {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  .titulo-pago {
+    font-size: 1.2rem;
+  }
+
+  .icono-tarjeta {
+    width: 28px;
+    height: 28px;
+  }
+}

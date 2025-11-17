@@ -1,0 +1,87 @@
+.principal-container {
+  font-family: Arial, sans-serif;
+}
+
+.navbar-principal {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Primera fila */
+.navbar-top {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.navbar-logo img {
+  height: 50px;
+}
+
+.navbar-search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-search input {
+  width: 60%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 25px 0 0 25px;
+  outline: none;
+}
+
+.navbar-search button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #180ed8;
+  background-color: #180ed8;
+  color: white;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-icons .icon {
+  height: 35px;
+  cursor: pointer;
+}
+
+/* Segunda fila - Categorías */
+.navbar-categories {
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+}
+
+.navbar-categories ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0.5rem 0;
+  gap: 2rem;
+}
+
+.navbar-categories li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navbar-categories li a:hover {
+  color: #180ed8;
+}
+
+.principal-content {
+  padding: 2rem;
+  text-align: center;
+}

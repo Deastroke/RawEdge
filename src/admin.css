@@ -1,0 +1,419 @@
+/* ==================== Contenedor Principal ==================== */
+.admin-container {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+}
+
+/* Título principal */
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* Secciones internas */
+.admin-section {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+/* Formularios internos */
+.admin-form input,
+.admin-form select {
+  margin: 8px;
+  padding: 10px;
+  width: 220px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.admin-form button {
+  padding: 10px 15px;
+  background: #180ed8;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.admin-form button:hover {
+  background: #180ed8;
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  vertical-align: top;
+}
+
+th {
+  background-color: #343a40;
+  color: white;
+}
+
+.mini-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+/* Tabs */
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-tabs button {
+  flex: 1 1 100px;
+  padding: 10px 20px;
+  border: 2px solid #000;
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.admin-tabs button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.admin-tabs button.active {
+  background-color: #000;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.modal input[type="text"],
+.modal input[type="number"],
+.modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modal textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  flex: 1 1 45%;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-buttons button:first-child {
+  background-color: #180ed8;
+  color: #fff;
+}
+
+.modal-buttons button:first-child:hover {
+  background-color: #180ed8;
+}
+
+.modal-buttons button:last-child {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.modal-buttons button:last-child:hover {
+  background-color: #c82333;
+}
+
+/* Filtros */
+.filtros-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  gap: 10px;
+}
+
+.filtros-container input,
+.filtros-container select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1 1 150px;
+}
+
+/* Paginación */
+.paginacion {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 5px;
+}
+
+.paginacion button {
+  padding: 6px 10px;
+  border: 1px solid #aaa;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagina-activa {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+/* ==================== MEDIA QUERIES PARA RESPONSIVIDAD ==================== */
+@media (max-width: 992px) {
+  .admin-form input,
+  .admin-form select {
+    width: 100%;
+  }
+  
+  .admin-tabs {
+    flex-direction: column;
+  }
+
+  .modal-buttons button {
+    flex: 1 1 100%;
+  }
+
+  .filtros-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-container {
+    padding: 20px;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+
+  .admin-tabs button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 6px;
+  }
+
+  .mini-img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+
+@media (max-width: 576px) {
+  .table-container {
+    width: 100%;
+    overflow-x: auto; /* permite scroll horizontal */
+  }
+
+  table {
+    min-width: 600px; /* asegura que la tabla tenga ancho suficiente para scroll */
+  }
+}
+
+
+
+/* Logo del panel */
+.admin-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-logo img {
+  max-width: 150px; /* tamaño máximo del logo */
+  width: 100%;
+  height: auto;
+}
+
+
+
+.acciones-td {
+  display: flex;
+  gap: 8px; /* Espacio entre botones */
+  justify-content: center; /* Centrar horizontalmente */
+  flex-wrap: wrap; /* Si no cabe, pasa a la siguiente línea */
+}
+
+.btn-modificar,
+.btn-eliminar {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Separación entre icono y texto */
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-modificar {
+  background-color: #180ed8;
+  color: #fff;
+}
+
+.btn-modificar:hover {
+  background-color: #180ed8;
+}
+
+.btn-eliminar {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-eliminar:hover {
+  background-color: #c82333;
+}
+
+/* Responsivo: ocultar texto en pantallas pequeñas pero mantener iconos alineados */
+@media (max-width: 576px) {
+  .btn-text {
+    display: none;
+  }
+
+  .acciones-td {
+    gap: 4px;
+  }
+}
+
+
+/* Botón de icono eliminar centrado */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff; /* fondo blanco */
+  color: #dc3545; /* rojo */
+  transition: all 0.2s;
+}
+
+.btn-icon:hover {
+  background-color: rgba(220, 53, 69, 0.1); /* sutil hover */
+}
+
+/* Responsivo */
+@media (max-width: 576px) {
+  .btn-icon {
+    padding: 4px;
+  }
+
+  .btn-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (min-width: 577px) {
+  .btn-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+
+/* Contenedor del input de archivo */
+.file-input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 300px; /* Ajusta según tu formulario */
+}
+
+/* El botón visible */
+.file-input-container button {
+  display: inline-block;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+}
+
+.file-input-container button:hover {
+  background-color: #45a049;
+}
+
+/* Input real (invisible) */
+.file-input-container input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}

@@ -1,0 +1,152 @@
+.perfil-page {
+  font-family: Arial, sans-serif;
+}
+
+.perfil-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.perfil-card {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 300px;
+  max-width: 90%;
+}
+
+.perfil-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.perfil-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn-modificar {
+  padding: 0.5rem;
+  background-color: #180ed8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-cerrar {
+  padding: 0.5rem;
+  background-color: #cf2234;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-perfil {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 20px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  flex: 1 1 45%;
+}
+
+.modal-buttons button:first-child {
+  background-color: #180ed8;
+  color: white;
+}
+
+.modal-buttons button:last-child {
+  background-color: #cf2234; /* rojo */
+  color: white;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .perfil-container {
+    padding: 1rem;
+  }
+
+  .perfil-card {
+    width: 250px;
+    padding: 1.5rem;
+  }
+
+  .perfil-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .modal-buttons button {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .perfil-card {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .perfil-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .modal-content {
+    padding: 15px;
+  }
+}

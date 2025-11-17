@@ -1,0 +1,144 @@
+.login-container {
+  display: flex;
+  width: 800px;
+  height: 500px;
+  margin: 50px auto;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* Lado izquierdo: logo */
+.login-left {
+  flex: 1;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-logo {
+  max-width: 150px;
+}
+
+/* Lado derecho: formulario */
+.login-right {
+  flex: 1;
+  color: #fff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./assets/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login-right h2 {
+  margin-bottom: 15px;
+}
+
+.login-right p {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-right form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-right input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.login-right button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.login-right button:hover {
+  opacity: 0.8;
+}
+
+.login-register-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-register-text a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-socials {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.login-socials img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+
+/* Tablets y pantallas medianas */
+@media (max-width: 992px) {
+  .login-container {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+  }
+
+  .login-left, .login-right {
+    width: 100%;
+    padding: 25px; /* mantiene espacio a los lados */
+  }
+
+  /* Centrar el logo horizontalmente */
+  .login-left {
+    order: -1; /* logo arriba del formulario */
+    display: block; /* no necesitamos flex aquí */
+    text-align: center; /* centra el contenido inline */
+  }
+
+  .login-logo {
+    max-width: 130px; /* tamaño del logo */
+    display: inline-block; /* necesario para que text-align funcione */
+    margin: 0 auto; /* centrado horizontal */
+  }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+  .login-left {
+    display: block;
+    text-align: center;
+    padding: 20px; /* mantiene espacio a los lados */
+  }
+
+  .login-logo {
+    max-width: 110px;
+    display: inline-block;
+    margin: 0 auto;
+  }
+}
