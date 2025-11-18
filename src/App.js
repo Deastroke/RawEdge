@@ -312,7 +312,7 @@ function Home() {
 
           <div className="footer-column">
             <h4>Descargar App</h4>
-            <div className="footer-apps">
+            <div className="footer-socials">
               <img src={playstor} alt="Google Play" />
               <img src={appstore} alt="App Store" />
             </div>
