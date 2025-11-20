@@ -9,11 +9,13 @@ import instagram from "./assets/instagram.png";
 import whatsapp from "./assets/whatsapp.png";
 import facebooke from "./assets/facebooke.png";
 
+
+
 function Register() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
-  const [contraseña, setContraseña] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   // ======================================
@@ -21,7 +23,7 @@ function Register() {
   // ======================================
   const handleCredentialResponse = async (response) => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/google", {
+      const res = await fetch("https://rawedge-backend.onrender.com/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: response.credential }),
@@ -34,7 +36,6 @@ function Register() {
         return;
       }
 
-      // Si el backend indica que NO tiene contraseña
       if (data.necesitaPassword) {
         alert("Completa tu registro creando una contraseña.");
         navigate(`/crear-password/${data.userId}`);
@@ -79,10 +80,10 @@ function Register() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/usuarios", {
+      const res = await fetch("https://rawedge-backend.onrender.com/api/usuarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, apellido, correo, contraseña }),
+        body: JSON.stringify({ nombre, apellido, correo, password }),
       });
 
       const data = await res.json();
@@ -94,7 +95,7 @@ function Register() {
       setNombre("");
       setApellido("");
       setCorreo("");
-      setContraseña("");
+      setPassword("");
 
       navigate("/login");
 
@@ -104,9 +105,6 @@ function Register() {
     }
   };
 
-  // ======================================
-  // 🔥 RETURN JSX
-  // ======================================
   return (
     <div className="register-container">
       <div className="register-left">
@@ -140,8 +138,8 @@ function Register() {
           <input
             type="password"
             placeholder="Contraseña"
-            value={contraseña}
-            onChange={e => setContraseña(e.target.value)}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
             required
           />
 

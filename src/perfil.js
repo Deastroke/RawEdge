@@ -39,7 +39,7 @@ function Perfil() {
   const handleGuardar = async () => {
     try {
       // Actualizar en base de datos
-      const res = await axios.put(`http://localhost:5000/api/usuarios/${usuario._id}`, {
+      const res = await axios.put(`https://rawedge-backend.onrender.com/api/usuarios/${usuario._id}`, {
         nombre: nuevoNombre,
         correo: nuevoCorreo,
       });

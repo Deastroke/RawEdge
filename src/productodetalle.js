@@ -24,7 +24,7 @@ function ProductoDetalle() {
 
   // Cargar todos los productos
   useEffect(() => {
-    axios.get("http://localhost:5000/api/productos")
+    axios.get("https://rawedge-backend.onrender.com/api/productos")
       .then(res => {
         setProductos(res.data);
         const prod = res.data.find(p => p._id === id);
@@ -75,7 +75,7 @@ const similares = productos.filter(
   }
 
   try {
-    const res = await axios.post(`http://localhost:5000/carritos/${usuarioId}/agregar`, {
+    const res = await axios.post(`https://rawedge-backend.onrender.com/carritos/${usuarioId}/agregar`, {
       productoId: producto._id,
       cantidad,
       color,
@@ -98,7 +98,7 @@ const similares = productos.filter(
       <div className="detalle-producto">
         <div className="detalle-imagen">
           <img 
-  src={`http://localhost:5000/uploads/${producto.imagen}`}
+  src={`https://rawedge-backend.onrender.com/uploads/${producto.imagen}`}
   onError={(e) => e.target.src = "https://via.placeholder.com/300"}
   alt={producto.nombre}
 />
@@ -179,7 +179,7 @@ const similares = productos.filter(
       {similares.map(p => (
         <Link to={`/producto/${p._id}`} key={p._id} className="similares-item">
           <img
-  src={`http://localhost:5000/uploads/${p.imagen}`}
+  src={`https://rawedge-backend.onrender.com/uploads/${p.imagen}`}
   onError={(e) => e.target.src = "https://via.placeholder.com/150"}
   alt={p.nombre}
 />

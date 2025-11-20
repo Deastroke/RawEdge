@@ -19,11 +19,12 @@ function CrearPassword() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/usuarios/create-password/${userId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nuevaContraseña: password }),
-      });
+      const res = await fetch(`https://rawedge-backend.onrender.com/api/usuarios/create-password/${userId}`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ nuevaContraseña: password }),
+});
+
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);

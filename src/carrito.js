@@ -30,7 +30,7 @@ function Carrito() {
 
     const fetchCarrito = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/carritos/${usuarioId}`);
+        const res = await axios.get(`https://rawedge-backend.onrender.com/carritos/${usuarioId}`);
         setProductos(res.data.productos || []);
       } catch (err) {
         console.error(err.response?.data || err);
@@ -48,9 +48,10 @@ function Carrito() {
 
     try {
       const res = await axios.delete(
-        `http://localhost:5000/carritos/${usuarioId}/eliminar/${p.producto._id}`,
-        { data: { color: p.color, talla: p.talla } }
-      );
+  `https://rawedge-backend.onrender.com/carritos/${usuarioId}/eliminar/${p.producto._id}`,
+  { data: { color: p.color, talla: p.talla } }
+);
+
 
       setProductos(res.data.productos || []);
       setSeleccionados(prev =>
@@ -78,13 +79,14 @@ function Carrito() {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/carritos/${usuarioId}/modificar/${p.producto._id}`,
-        {
-          cantidad: nuevaCantidad,
-          color: p.color,
-          talla: p.talla,
-        }
-      );
+  `https://rawedge-backend.onrender.com/carritos/${usuarioId}/modificar/${p.producto._id}`,
+  {
+    cantidad: nuevaCantidad,
+    color: p.color,
+    talla: p.talla,
+  }
+);
+
 
       setProductos(res.data.productos || []);
     } catch (err) {
@@ -222,7 +224,7 @@ function Carrito() {
                 <img
   src={
     prod.producto?.imagen
-      ? `http://localhost:5000/uploads/${prod.producto.imagen}`
+      ? `https://rawedge-backend.onrender.com/uploads/${prod.producto.imagen}`
       : "https://via.placeholder.com/80"
   }
   alt={prod.producto?.nombre || "Producto"}

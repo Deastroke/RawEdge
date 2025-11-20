@@ -42,15 +42,17 @@ function AdminPanel() {
     obtenerUsuarios();
   }, []);
 
-  const obtenerProductos = async () => {
-    const res = await axios.get("http://localhost:5000/api/productos");
-    setProductos(res.data);
-  };
+ const obtenerProductos = async () => {
+  const res = await axios.get("https://rawedge-backend.onrender.com/api/productos");
+  setProductos(res.data);
+};
+
 
   const obtenerUsuarios = async () => {
-    const res = await axios.get("http://localhost:5000/api/usuarios");
-    setUsuarios(res.data);
-  };
+  const res = await axios.get("https://rawedge-backend.onrender.com/api/usuarios");
+  setUsuarios(res.data);
+};
+
 
  const agregarProducto = async (e) => {
   e.preventDefault();
@@ -65,7 +67,7 @@ function AdminPanel() {
   formData.append("talla", nuevoProducto.talla);
   formData.append("imagen", nuevoProducto.imagen); // archivo
 
-  await axios.post("http://localhost:5000/api/productos", formData, {
+  await axios.post( "https://rawedge-backend.onrender.com/api/productos", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -90,7 +92,7 @@ function AdminPanel() {
 
   const agregarUsuario = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/api/usuarios", nuevoUsuario);
+    await axios.post("https://rawedge-backend.onrender.com/api/usuarios", nuevoUsuario);
     setNuevoUsuario({
       nombre: "",
       apellido: "",
@@ -103,7 +105,7 @@ function AdminPanel() {
 
   const eliminarProducto = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/productos/${id}`);
+      await axios.delete(`https://rawedge-backend.onrender.com/api/productos/${id}`);
       obtenerProductos();
     } catch (error) {
       console.error("Error al eliminar producto:", error);
@@ -112,7 +114,7 @@ function AdminPanel() {
 
   const eliminarUsuario = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/usuarios/${id}`);
+      await axios.delete(`https://rawedge-backend.onrender.com/api/usuarios/${id}`);
       obtenerUsuarios();
     } catch (error) {
       console.error("Error al eliminar usuario:", error);
@@ -121,7 +123,7 @@ function AdminPanel() {
 
   const actualizarProducto = async (producto) => {
     try {
-      await axios.put(`http://localhost:5000/api/productos/${producto._id}`, producto);
+      await axios.put(`https://rawedge-backend.onrender.com/api/productos/${producto._id}`,producto);
       setProductoEditar(null);
       obtenerProductos();
     } catch (error) {

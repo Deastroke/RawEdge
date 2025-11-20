@@ -33,7 +33,7 @@ function Principal() {
   // Cargar productos desde el backend
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/productos")
+      .get("https://rawedge-backend.onrender.com/api/productos")
       .then((res) => setProductos(res.data))
       .catch((err) => console.log("Error al obtener productos:", err));
   }, []);
@@ -120,7 +120,7 @@ function Principal() {
                 <img
   src={
     p.imagen
-      ? `http://localhost:5000/uploads/${p.imagen}`
+      ? `https://rawedge-backend.onrender.com/uploads/${p.imagen}`
       : "https://via.placeholder.com/200"
   }
   alt={p.nombre}

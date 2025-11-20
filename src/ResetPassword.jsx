@@ -12,10 +12,13 @@ function ResetPassword() {
   const [msg, setMsg] = useState("");
   const [validToken, setValidToken] = useState(null);
 
+  // URL de tu backend en Render
+  const BACKEND_URL = "https://rawedge-backend.onrender.com/api/usuarios";
+
   useEffect(() => {
     const verificarToken = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/usuarios/verify-token/${token}`);
+        const res = await fetch(`${BACKEND_URL}/verify-token/${token}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
         setValidToken(true);
@@ -35,15 +38,17 @@ function ResetPassword() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/usuarios/reset-password/${token}`, {
+      const res = await fetch(`${BACKEND_URL}/reset-password/${token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nuevaContraseña: password }),
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
 
       setMsg("Contraseña actualizada correctamente");
+
       setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
       setMsg(error.message);
@@ -58,7 +63,9 @@ function ResetPassword() {
         <div className="reset-card">
           <h2>Enlace inválido</h2>
           <p>{msg}</p>
-          <button onClick={() => navigate("/forgot-password")}>Solicitar nuevo enlace</button>
+          <button onClick={() => navigate("/forgot-password")}>
+            Solicitar nuevo enlace
+          </button>
         </div>
       </div>
     );
@@ -86,7 +93,9 @@ function ResetPassword() {
             required
             className="reset-input"
           />
-          <button type="submit" className="reset-button">Guardar contraseña</button>
+          <button type="submit" className="reset-button">
+            Guardar contraseña
+          </button>
         </form>
 
         {msg && <p className="reset-msg">{msg}</p>}
