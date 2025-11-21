@@ -20,7 +20,7 @@ const handleSubmit = async (e) => {
      const res = await fetch("https://rawedge-backend.onrender.com/api/usuarios/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ correo: email, contraseña: password }),
+      body: JSON.stringify({ correo: email, password }),
     });
 
     const data = await res.json();
