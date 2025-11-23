@@ -1,44 +1,53 @@
+/* CONTENEDOR GENERAL */
 .login-container {
   display: flex;
-  width: 800px;
-  height: 500px;
-  margin: 50px auto;
+  width: 850px;
+  height: 520px;
+  margin: 40px auto;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   font-family: Arial, sans-serif;
+  background-color: #fff;
 }
 
-/* Lado izquierdo: logo */
+/* LADO IZQUIERDO (LOGO) */
 .login-left {
   flex: 1;
   background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 30px;
 }
 
 .login-logo {
-  max-width: 150px;
+  max-width: 170px;
+  width: 100%;
 }
 
-/* Lado derecho: formulario */
+/* LADO DERECHO (FORMULARIO) */
 .login-right {
   flex: 1;
-  color: #fff;
-  padding: 40px;
+  
+  /* 🔥 Esto centra absolutamente todo */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  padding: 30px;
+
   background-image: url('./assets/fondo.jpg');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  color: #fff;
 }
 
 .login-right h2 {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  font-size: 26px;
+  text-align: center;
 }
 
 .login-right p {
@@ -46,23 +55,29 @@
   text-align: center;
 }
 
+/* FORMULARIO */
 .login-right form {
   width: 100%;
+  max-width: 300px; /* ← Mantiene todo centrado */
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .login-right input {
+  width: 100%;
   margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 6px;
   border: none;
+  font-size: 15px;
 }
 
 .login-right button {
-  padding: 10px;
+  width: 100%;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   background-color: #000;
   color: #fff;
   cursor: pointer;
@@ -70,38 +85,31 @@
   transition: 0.2s;
 }
 
-.login-right button:hover {
-  opacity: 0.8;
-}
-
 .login-register-text {
   margin-top: 15px;
   font-size: 14px;
+  text-align: center;
 }
 
-.login-register-text a {
-  color: #fff;
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
+/* ICONOS SOCIALES */
 .login-socials {
   margin-top: 20px;
   display: flex;
   gap: 10px;
+  justify-content: center;
 }
 
 .login-socials img {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
 }
 
-/* RESPONSIVE */
 
+/* ===========================
+   RESPONSIVE
+=========================== */
 
-/* Tablets y pantallas medianas */
 @media (max-width: 992px) {
   .login-container {
     flex-direction: column;
@@ -109,36 +117,32 @@
     height: auto;
   }
 
-  .login-left, .login-right {
+  .login-left,
+  .login-right {
     width: 100%;
-    padding: 25px; /* mantiene espacio a los lados */
+    padding: 25px;
   }
 
-  /* Centrar el logo horizontalmente */
-  .login-left {
-    order: -1; /* logo arriba del formulario */
-    display: block; /* no necesitamos flex aquí */
-    text-align: center; /* centra el contenido inline */
-  }
-
-  .login-logo {
-    max-width: 130px; /* tamaño del logo */
-    display: inline-block; /* necesario para que text-align funcione */
-    margin: 0 auto; /* centrado horizontal */
+  .login-right form {
+    max-width: 320px;
   }
 }
 
-/* Celulares pequeños */
 @media (max-width: 480px) {
-  .login-left {
-    display: block;
-    text-align: center;
-    padding: 20px; /* mantiene espacio a los lados */
+  .login-container {
+    width: 95%;
+    margin: 20px auto;
   }
 
-  .login-logo {
-    max-width: 110px;
-    display: inline-block;
-    margin: 0 auto;
+  .login-left {
+    padding: 20px 0;
+  }
+
+  .login-right {
+    padding: 20px;
+  }
+
+  .login-right form {
+    max-width: 280px;
   }
 }

@@ -37,7 +37,7 @@ import ProductoDetalle from "./productodetalle.js";
 import NavbarGlobal from "./navbarglobal.js";
 import PagoTarjeta from "./pago.js";
 import FormularioEnvio from "./envio.js";
-import PanelRawEdge123xyz from "./panel-rawedge-123xyz.jsx";
+import PanelRawEdge123xyz from "./panel-rawedge-123xyz";
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
