@@ -16,6 +16,7 @@ const urlsToCache = [
   "/assets/paqueteria.jpg",
   "/assets/pagotarjeta.jpg",
   "/assets/carrito.jpg",
+  "/raw.jpg",
   "/assets/playstore.jpg",
   "/assets/whatsapp.png",
   "/assets/facebook.png",
