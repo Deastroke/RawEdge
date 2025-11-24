@@ -18,13 +18,11 @@ function CheckoutForm({ total, productosSeleccionados }) {
       return;
     }
 
-    // Total real verificado desde frontend
     const totalCalculado = productosSeleccionados.reduce(
       (sum, p) => sum + Number(p.producto.precio) * Number(p.cantidad || 1),
       0
     );
 
-    // Datos del usuario
     const datosEnvio = JSON.parse(localStorage.getItem("datosEnvio")) || {};
     const usuario = JSON.parse(localStorage.getItem("usuario")) || {};
     const correoCliente = datosEnvio.correo || usuario.correo || null;
@@ -36,8 +34,8 @@ function CheckoutForm({ total, productosSeleccionados }) {
 
     setLoading(true);
     try {
-      // 1️⃣ Crear el pago en el backend
-      const res = await axios.post("http://localhost:5000/api/pago", {
+      // 1️⃣ Crear el pago en Render
+      const res = await axios.post("https://rawedge-backend.onrender.com/api/pago", {
         total: totalCalculado,
         correo: correoCliente,
         productos: productosSeleccionados.map((p) => ({
@@ -60,26 +58,22 @@ function CheckoutForm({ total, productosSeleccionados }) {
       if (result.paymentIntent?.status === "succeeded") {
         setMessage("✅ Pago realizado con éxito");
 
-        // 4️⃣ Enviar correo al cliente y registro
-        await axios.post("http://localhost:5000/correo/enviar", {
+        // 4️⃣ Enviar correo desde Render
+        await axios.post("https://rawedge-backend.onrender.com/correo/enviar", {
           datosEnvio,
           productos: productosSeleccionados,
           usuarioId: usuario._id || null,
         });
 
-        console.log("📧 Pedido guardado y correos enviados");
-
-        // 5️⃣ Descontar inventario en backend
-        await axios.post("http://localhost:5000/inventario/descontar", {
+        // 5️⃣ Descontar inventario en Render
+        await axios.post("https://rawedge-backend.onrender.com/inventario/descontar", {
           productos: productosSeleccionados.map((p) => ({
             _id: p.producto._id,
             cantidad: p.cantidad,
           })),
         });
 
-        console.log("📦 Inventario actualizado");
-
-        // 6️⃣ Limpiar almacenamiento local
+        // 6️⃣ Limpiar localStorage
         localStorage.removeItem("carrito");
         localStorage.removeItem("datosEnvio");
         localStorage.removeItem("productosSeleccionados");
