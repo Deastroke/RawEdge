@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes,  Route, Link, useLocation } from "react-router-dom";
+import { HashRouter as Router, Routes,  Route, Link, useLocation } from "react-router-dom";
 import "./App.css";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+
 
 // Imágenes y videos
 import logo from "./assets/RawEdge.png";
@@ -361,8 +362,6 @@ function AppWrapper() {
   
   );
 }
-
-
 
 
 function App() {

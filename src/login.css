@@ -105,6 +105,19 @@
   cursor: pointer;
 }
 
+/* Links de registro y contraseña */
+.login-register-text a {
+  color: #ffffff; /* blanco para resaltar sobre el fondo oscuro */
+  text-decoration: underline; /* opcional, para que se note que es clicable */
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.login-register-text a:hover {
+  color: #ffd700; /* cambio de color al pasar el mouse (opcional) */
+  text-decoration: none;
+}
+
 
 /* ===========================
    RESPONSIVE
@@ -128,6 +141,7 @@
   }
 }
 
+
 @media (max-width: 480px) {
   .login-container {
     width: 95%;
@@ -139,10 +153,24 @@
   }
 
   .login-right {
-    padding: 20px;
+    padding: 20px 15px; /* Padding: top/bottom 20px, izquierda/derecha 15px */
+    text-align: center; /* Centra todo el texto */
+  }
+
+  .login-right h2,
+  .login-right p {
+    text-align: center; /* Centrado explícito */
+    word-wrap: break-word; /* Evita que el texto se salga */
   }
 
   .login-right form {
     max-width: 280px;
+    margin: 0 auto; /* Centra el formulario */
+  }
+
+  .login-right input,
+  .login-right button {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
