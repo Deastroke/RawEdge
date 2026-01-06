@@ -417,3 +417,23 @@ th {
   opacity: 0;
   cursor: pointer;
 }
+
+
+/* Input de archivo (imagen) dentro del modal */
+.modal input[type="file"] {
+  display: block;
+  width: 90%;          /* un poco más estrecho que el 100% */
+  padding: 0.6rem;
+  border: 2px dashed #1e1e2f;
+  border-radius: 8px;
+  background-color: #fafafa;
+  color: #555;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  margin-bottom: 1rem; /* espacio debajo */
+}
+
+.modal input[type="file"]:hover {
+  background-color: #f0f0f0;
+  border-color: #3a3a50;
+}

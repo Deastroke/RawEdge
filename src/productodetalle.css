@@ -1,12 +1,3 @@
-.detalle-container {
-  padding-top: 0px; /* suficiente para no pegarse al navbar */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  background-color: #fafafa;
-}
-
 
 .detalle-producto {
   display: flex;
@@ -100,13 +91,14 @@
 
 
 .detalle-container {
-  padding-top: 40px;
   display: flex;
-  flex-direction: column; /* 🔹 IMPORTANTE: para apilar secciones verticalmente */
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
   background-color: #fafafa;
+  padding-top: 100px; /* navbar desktop */
 }
+
 
 .detalle-producto {
   display: flex;
@@ -119,9 +111,15 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   width: 90%;
   max-width: 1200px;
-  margin-bottom: 50px; /* 🔹 separa del bloque de similares */
+  margin-bottom: 50px;
 }
 
+@media (max-width: 768px) {
+  .detalle-container {
+    padding-top: 120px; /* navbar superior móvil */
+    padding-bottom: 90px; /* 👈 espacio para navbar inferior */
+  }
+}
 
 /* 📱 SOLO RESPONSIVE PARA CELULAR (imagen 160px) */
 @media (max-width: 600px) {
@@ -171,61 +169,292 @@
 }
 
 
-
-
+/* =========================
+   SIMILARES – DISEÑO PREMIUM
+   ========================= */
 .similares-container {
-  margin-top: 40px;
-  text-align: center;
+  margin-top: 50px;
+  text-align: left;
+  padding: 0 20px;
 }
 
+.similares-container h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #1a1a1a;
+}
+
+/* Slider horizontal */
 .similares-grid {
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  padding: 10px;
+  padding: 10px 5px;
   scroll-behavior: smooth;
+
+  /* Scroll elegante */
+  scrollbar-width: thin;
+  scrollbar-color: #c8c8c8 transparent;
 }
 
+.similares-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.similares-grid::-webkit-scrollbar-thumb {
+  background: #c8c8c8;
+  border-radius: 4px;
+}
+
+/* Tarjetas */
 .similares-item {
   flex: 0 0 auto;
-  width: 180px;
-  text-align: center;
+  width: 190px;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
   text-decoration: none;
   color: #000;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  border: 1px solid #eaeaea;
 }
 
 .similares-item:hover {
-  transform: scale(1.05);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
+/* Imagen */
 .similares-item img {
   width: 100%;
-  height: 180px;
+  height: 170px;
   object-fit: cover;
-  border-radius: 12px 12px 0 0;
+  border-bottom: 1px solid #eee;
 }
 
+/* Título */
+.similares-item p {
+  padding: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  text-align: left;
+}
 
-/* 📱 RESPONSIVE PARA CELULAR */
+/* Precio (si lo agregas más adelante) */
+.similares-item .precio {
+  font-weight: bold;
+  color: #180ed8;
+  font-size: 1rem;
+  margin-top: -5px;
+  padding: 0 10px 10px;
+}
+
+/* ============================
+     RESPONSIVE CELULAR
+   ============================ */
 @media (max-width: 600px) {
   .similares-grid {
-    gap: 15px;
-    padding: 10px 5px;
+    gap: 12px;
   }
 
   .similares-item {
-    width: 140px; /* 🔹 Más pequeño para celulares */
+    width: 150px;
+    border-radius: 12px;
   }
 
   .similares-item img {
-    height: 140px; /* 🔹 Tamaño reducido proporcional */
+    height: 130px;
+  }
+
+  .similares-item p {
+    font-size: 0.85rem;
   }
 }
 
+
+
+
+/* =====================================
+   NAVBAR — PRODUCTO DETALLE
+===================================== */
+
+.producto-detalle-navbar {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+/* Fila superior */
+.producto-detalle-navbar-top {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+/* LOGO — nunca se oculta */
+.producto-detalle-navbar-logo {
+  flex-shrink: 0;
+}
+
+.producto-detalle-navbar-logo img {
+  height: 40px;
+  object-fit: contain;
+  display: block;
+}
+/* ===============================
+   ICONOS PERFIL / CARRITO
+================================ */
+
+.perfil-navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+/* Íconos */
+.perfil-navbar-icons .icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.25s ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* 🔑 SOLO PC: agrandar al hover */
+@media (hover: hover) and (pointer: fine) {
+  .perfil-navbar-icons .icon:hover {
+    transform: scale(1.15);
+  }
+}
+
+/* ===============================
+   CELULAR
+================================ */
+@media (max-width: 768px) {
+  .perfil-navbar-icons {
+    gap: 26px; /* 🔥 más ancho solo en móvil */
+  }
+
+  .perfil-navbar-icons .icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+
+
+
+
+
+/* 🔴 OCULTAR MENÚ INFERIOR EN COMPUTADORA */
+@media (min-width: 769px) {
+  .mobile-bottom-navbar {
+    display: none !important;
+  }
+}
+
+
+/* 📱 NAVBAR INFERIOR CON ICONOS */
+@media (max-width: 768px) {
+
+  .mobile-bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around; /* espacio entre cada botón */
+    align-items: center;
+    padding: 10px 0;
+    z-index: 1000;
+  }
+
+  .bottom-btn {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column; /* icono arriba, texto abajo */
+    align-items: center;
+    justify-content: center;
+    gap: 4px; /* espacio entre icono y texto */
+    font-size: 13px;
+    color: #333;
+    width: 25%; /* los 4 botones se reparten perfectamente */
+    padding: 8px 0;
+  }
+
+  .bottom-btn img {
+    width: 28px;   /* tamaño perfecto para iconos */
+    height: 28px;
+  }
+
+/* Contenedor del submenu */
+.bottom-submenu {
+  position: absolute;
+  bottom: 60px; /* arriba del navbar inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 150px;          /* MÁS CHIQUITO */
+  z-index: 999;
+}
+
+/* Botones dentro del submenu */
+.bottom-submenu button {
+  padding: 6px 8px;       /* MÁS PEQUEÑO */
+  font-size: 0.85rem;     /* LETRA MÁS CHICA */
+  border-radius: 6px;
+  background: #f3f3f3;
+  border: none;
+}
+
+.bottom-submenu button:hover {
+  background: #eaeaea;
+}
+
+/* Si el menú es el de perfil alinearlo a la derecha */
+.bottom-submenu.right {
+  left: auto;
+  right: 10px;
+  transform: none;
+}
+
+}
+
+
+.mobile-bottom-navbar .icon {
+  font-size: 1.6rem;
+}
+
+.mobile-bottom-navbar .bottom-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
 
 
 
@@ -351,5 +580,12 @@
   .footer-socials img {
     width: 35px;
     margin-right: 10px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .detalle-container {
+    padding-top: 120px; /* ajusta según altura de navbar */
   }
 }

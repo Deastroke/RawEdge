@@ -7,6 +7,7 @@ const urlsToCache = [
   "/index.html",
   "/manifest.json",
   "/favicon.ico",
+
   // 🔹 Imágenes principales
   "/assets/RawEdge.png",
   "/assets/ropa.jpg",
@@ -26,13 +27,23 @@ const urlsToCache = [
   "/assets/facebooke.png",
   "/assets/fondo.jpg",
   "/assets/fond.jpg",
+
   // 🔹 Banners
   "/assets/bannerhombre.jpg",
   "/assets/bannermujer.jpg",
   "/assets/banneraccesorios.jpg",
   "/assets/bannerofertas.jpg",
   "/assets/bannernuevo.jpg",
+
+  // 🔹 Nuevas imágenes que faltaban
+  "/assets/photo.avif",
+  "/assets/oferta.png",
+  "/assets/hombre.png",
+  "/assets/mujer.png",
+  "/assets/card.png",
+  "/assets/user.png",
 ];
+
 
 // ==========================
 // INSTALACIÓN

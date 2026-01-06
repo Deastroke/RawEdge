@@ -4,7 +4,6 @@ import "./admin.css";
 import logo from "./assets/RawEdge.png";
 import { FaEdit, FaTrash } from "react-icons/fa"; // ícono de modificar y eliminar
 
-
 function AdminPanel() {
   const [productos, setProductos] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
@@ -29,11 +28,12 @@ function AdminPanel() {
     imagen: "",
   });
 
+  // ------------- USUARIO (CORREGIDO para usar "password") ------------
   const [nuevoUsuario, setNuevoUsuario] = useState({
     nombre: "",
     apellido: "",
     correo: "",
-    contraseña: "",
+    password: "",
     tipo: "usuario",
   });
 
@@ -42,64 +42,64 @@ function AdminPanel() {
     obtenerUsuarios();
   }, []);
 
- const obtenerProductos = async () => {
-  const res = await axios.get("https://rawedge-backend.onrender.com/api/productos");
-  setProductos(res.data);
-};
-
+  const obtenerProductos = async () => {
+    const res = await axios.get("https://rawedge-backend.onrender.com/api/productos");
+    setProductos(res.data);
+  };
 
   const obtenerUsuarios = async () => {
-  const res = await axios.get("https://rawedge-backend.onrender.com/api/usuarios");
-  setUsuarios(res.data);
-};
+    const res = await axios.get("https://rawedge-backend.onrender.com/api/usuarios");
+    setUsuarios(res.data);
+  };
 
+  const agregarProducto = async (e) => {
+    e.preventDefault();
 
- const agregarProducto = async (e) => {
-  e.preventDefault();
+    const formData = new FormData();
+    formData.append("nombre", nuevoProducto.nombre);
+    formData.append("precio", nuevoProducto.precio);
+    formData.append("categoria", nuevoProducto.categoria);
+    formData.append("cantidad", nuevoProducto.cantidad);
+    formData.append("color", nuevoProducto.color);
+    formData.append("descripcion", nuevoProducto.descripcion);
+    formData.append("talla", nuevoProducto.talla);
+    formData.append("imagen", nuevoProducto.imagen);
 
-  const formData = new FormData();
-  formData.append("nombre", nuevoProducto.nombre);
-  formData.append("precio", nuevoProducto.precio);
-  formData.append("categoria", nuevoProducto.categoria);
-  formData.append("cantidad", nuevoProducto.cantidad);
-  formData.append("color", nuevoProducto.color);
-  formData.append("descripcion", nuevoProducto.descripcion);
-  formData.append("talla", nuevoProducto.talla);
-  formData.append("imagen", nuevoProducto.imagen); // archivo
+    await axios.post("https://rawedge-backend.onrender.com/api/productos", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
-  await axios.post( "https://rawedge-backend.onrender.com/api/productos", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+    setNuevoProducto({
+      nombre: "",
+      precio: "",
+      categoria: "",
+      cantidad: "",
+      color: "",
+      descripcion: "",
+      talla: "",
+      imagen: null,
+    });
 
-  // Limpiar formulario
-  setNuevoProducto({
-  nombre: "",
-  precio: "",
-  categoria: "",
-  cantidad: "",
-  color: "",
-  descripcion: "",
-  talla: "",
-  imagen: null,
-});
+    obtenerProductos();
+  };
 
-
-  obtenerProductos();
-};
-
-
+  // ------------------- AGREGAR USUARIO (CORREGIDO) --------------------
   const agregarUsuario = async (e) => {
     e.preventDefault();
-    await axios.post("https://rawedge-backend.onrender.com/api/usuarios", nuevoUsuario);
+
+    await axios.post(
+      "https://rawedge-backend.onrender.com/api/usuarios",
+      nuevoUsuario
+    );
+
     setNuevoUsuario({
       nombre: "",
       apellido: "",
       correo: "",
-      contraseña: "",
+      password: "",
       tipo: "usuario",
     });
+
     obtenerUsuarios();
   };
 
@@ -123,7 +123,10 @@ function AdminPanel() {
 
   const actualizarProducto = async (producto) => {
     try {
-      await axios.put(`https://rawedge-backend.onrender.com/api/productos/${producto._id}`,producto);
+      await axios.put(
+        `https://rawedge-backend.onrender.com/api/productos/${producto._id}`,
+        producto
+      );
       setProductoEditar(null);
       obtenerProductos();
     } catch (error) {
@@ -149,6 +152,7 @@ function AdminPanel() {
   const totalPaginas = Math.ceil(productosFiltrados.length / productosPorPagina);
 
   const cambiarPagina = (numero) => setPaginaActual(numero);
+
 
   return (
     <div className="admin-container">
@@ -285,7 +289,12 @@ function AdminPanel() {
                   <td>{p.descripcion}</td>
                   <td>{p.talla}</td>
                   <td>
-                    <img src={`http://localhost:5000/uploads/${p.imagen}`} alt={p.nombre} className="mini-img" />
+                    <img
+  src={`https://rawedge-backend.onrender.com/uploads/${p.imagen}`}
+  alt={p.nombre}
+  className="mini-img"
+/>
+
                   </td>
                   <td>
                     <td className="acciones-td">
@@ -314,56 +323,104 @@ function AdminPanel() {
         </section>
       )}
 
-      {/* ==================== SECCIÓN USUARIOS ==================== */}
-      {tab === "usuarios" && (
-        <section className="admin-section">
-          <h2>Agregar Usuario</h2>
-          <form className="admin-form" onSubmit={agregarUsuario}>
-            <input type="text" placeholder="Nombre" value={nuevoUsuario.nombre} onChange={(e) => setNuevoUsuario({ ...nuevoUsuario, nombre: e.target.value })} required />
-            <input type="text" placeholder="Apellido" value={nuevoUsuario.apellido} onChange={(e) => setNuevoUsuario({ ...nuevoUsuario, apellido: e.target.value })} required />
-            <input type="email" placeholder="Correo" value={nuevoUsuario.correo} onChange={(e) => setNuevoUsuario({ ...nuevoUsuario, correo: e.target.value })} required />
-            <input type="password" placeholder="Contraseña" value={nuevoUsuario.contraseña} onChange={(e) => setNuevoUsuario({ ...nuevoUsuario, contraseña: e.target.value })} required />
-            <select value={nuevoUsuario.tipo} onChange={(e) => setNuevoUsuario({ ...nuevoUsuario, tipo: e.target.value })}>
-              <option value="usuario">Usuario normal</option>
-              <option value="admin">Administrador</option>
-            </select>
-            <button type="submit">Agregar Usuario</button>
-          </form>
+{/* ==================== SECCIÓN USUARIOS ==================== */}
+{tab === "usuarios" && (
+  <section className="admin-section">
+    <h2>Agregar Usuario</h2>
+
+    <form className="admin-form" onSubmit={agregarUsuario}>
+      <input
+        type="text"
+        placeholder="Nombre"
+        value={nuevoUsuario.nombre}
+        onChange={(e) =>
+          setNuevoUsuario({ ...nuevoUsuario, nombre: e.target.value })
+        }
+        required
+      />
+
+      <input
+        type="text"
+        placeholder="Apellido"
+        value={nuevoUsuario.apellido}
+        onChange={(e) =>
+          setNuevoUsuario({ ...nuevoUsuario, apellido: e.target.value })
+        }
+        required
+      />
+
+      <input
+        type="email"
+        placeholder="Correo"
+        value={nuevoUsuario.correo}
+        onChange={(e) =>
+          setNuevoUsuario({ ...nuevoUsuario, correo: e.target.value })
+        }
+        required
+      />
+
+      <input
+        type="password"
+        placeholder="Contraseña"
+        value={nuevoUsuario.password}
+        onChange={(e) =>
+          setNuevoUsuario({ ...nuevoUsuario, password: e.target.value })
+        }
+        required
+      />
+
+      <select
+        value={nuevoUsuario.tipo}
+        onChange={(e) =>
+          setNuevoUsuario({ ...nuevoUsuario, tipo: e.target.value })
+        }
+      >
+        <option value="usuario">Usuario normal</option>
+        <option value="admin">Administrador</option>
+      </select>
+
+      <button type="submit">Agregar Usuario</button>
+    </form>
 
 
-<div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Correo</th>
-                <th>Contraseña</th>
-                <th>Tipo</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usuarios.map((u) => (
-                <tr key={u._id}>
-                  <td>{u.nombre}</td>
-                  <td>{u.apellido}</td>
-                  <td>{u.correo}</td>
-                  <td>{u.contraseña}</td>
-                  <td>{u.tipo}</td>
-                  <td>
-                    <button className="btn-icon" onClick={() => eliminarUsuario(u._id)}>
-    <FaTrash />
-  </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </div>
-        </section>
-      
-      )}
+    <div className="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Contraseña</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {usuarios.map((u) => (
+            <tr key={u._id}>
+              <td>{u.nombre}</td>
+              <td>{u.apellido}</td>
+              <td>{u.correo}</td>
+              <td>{u.password}</td>
+              <td>{u.tipo}</td>
+
+              <td>
+                <button
+                  className="btn-icon"
+                  onClick={() => eliminarUsuario(u._id)}
+                >
+                  <FaTrash />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+)}
+
     </div>
     
   );

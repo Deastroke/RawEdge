@@ -1,416 +1,500 @@
-/* ==================== Navbar Principal ==================== */
-.navbar-principal {
-  width: 100%;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.navbar-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 2rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.navbar-logo img {
-  height: 50px;
-}
-
-.navbar-search {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  min-width: 200px;
-}
-
-.navbar-search input {
-  width: 100%;
-  max-width: 400px;
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 25px 0 0 25px;
-  outline: none;
-}
-
-.navbar-search button {
-  padding: 0.5rem 1rem;
-  border: 1px solid #180ed8;
-  background-color: #180ed8;
-  color: white;
-  border-radius: 0 25px 25px 0;
-  cursor: pointer;
-}
-
-.navbar-icons {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.navbar-icons .icon {
-  height: 35px;
-  cursor: pointer;
-}
-
-/* ==================== Categorías ==================== */
-.navbar-categories {
-  background-color: #f8f9fa;
-  border-top: 1px solid #ddd;
-}
-
-.navbar-categories ul {
-  display: flex;
-  justify-content: center; /* centramos las categorías en desktop */
-  list-style: none;
-  margin: 0;
-  padding: 0.5rem;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-}
-
-.navbar-categories li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  white-space: nowrap;
-  transition: color 0.3s;
-}
-
-.navbar-categories li a:hover {
-  color: #180ed8;
-}
-
-/* ==================== Sección Categorías ==================== */
+/* ==================== Sección Categorías Profesional ==================== */
 .categorias-section {
   text-align: center;
-  margin: 3rem auto;
+  margin: 4rem auto;
+  padding: 0 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .categorias-title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #333;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: #1c1c1c;
+  letter-spacing: 1px;
+  position: relative;
 }
 
+.categorias-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #007bff;
+  margin: 10px auto 0 auto;
+  border-radius: 2px;
+}
+
+/* Contenedor de tarjetas */
 .categorias-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 20px;
-  max-width: 900px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 25px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
+/* Tarjeta */
 .categoria-card {
-  background-color: #f9f9f9;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 16px;
   padding: 2rem 1rem;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Hover elegante */
 .categoria-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15), 0 6px 10px rgba(0,0,0,0.1);
+  background: linear-gradient(145deg, #ffffff, #f0f5ff);
 }
 
+/* Icono */
 .categoria-icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 1rem;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 1.2rem;
+  transition: transform 0.3s ease;
 }
 
+/* Animación icono hover */
+.categoria-card:hover .categoria-icon {
+  transform: rotate(8deg) scale(1.1);
+}
+
+/* Nombre de categoría */
 .categoria-card p {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #444;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Cambiar color al pasar el mouse */
+.categoria-card:hover p {
+  color: #007bff;
+}
+
+/* Efecto de brillo sutil */
+.categoria-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 50%;
+}
+
+.categoria-card:hover::before {
+  opacity: 1;
+  transform: rotate(20deg);
 }
 
 
 
-/* ==================== Responsive Navbar Principal ==================== */
-@media (max-width: 992px) {
-  .navbar-top {
-    display: flex;
-    justify-content: space-between; /* logo izquierda, buscador centro, íconos derecha */
-    align-items: center;
-    flex-wrap: nowrap;
-    padding: 0.5rem 1rem;
-    gap: 0.5rem;
-  }
 
-  /* Logo más pegado a la izquierda */
-  .navbar-logo {
-    display: flex;
-    align-items: center;
-    flex: 0; /* no ocupa espacio extra */
-    margin-left: 0; /* pegado al borde */
-  }
 
-  .navbar-logo img {
-    height: 30px; /* tamaño adecuado */
-  }
+/* ======== CONTENEDOR GENERAL ======== */
+.principal-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 120px; /* espacio desde navbar fijo */
+}
 
-  /* Buscador centrado */
-  .navbar-search {
-    flex: 2;
+/* ======== NAVBAR PRINCIPAL ======== */
+.principal-navbar {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+/* ======== TOP NAVBAR (Logo / Buscador / Iconos) ======== */
+.principal-navbar-top {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+}
+
+/* LOGO */
+.principal-navbar-logo img {
+  height: 40px;
+}
+
+/* ======== BUSCADOR PC ======== */
+.desktop-only {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+
+.principal-navbar-search input {
+  width: 600px;             /* Ancho horizontal */
+  padding: 10px 20px;       /* 🔹 menos alto verticalmente */
+  font-size: 15px;
+  border: 1px solid #cfcfcf;
+  border-radius: 30px;      /* Bordes más redondeados */
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.principal-navbar-search input:focus {
+  border-color: #180ED8;
+}
+
+.principal-navbar-search button {
+  padding: 10px 24px;       /* Más estrecho verticalmente */
+  background: #180ED8;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.principal-navbar-search button:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+/* ICONOS DERECHA */
+.principal-navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.principal-navbar-icons .icon {
+  height: 30px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.principal-navbar-icons .icon:hover {
+  transform: scale(1.08);
+}
+
+/* ======== CATEGORÍAS ======== */
+.principal-navbar-categories {
+  border-top: 1px solid #eaeaea;
+  background: white;
+}
+
+.principal-navbar-categories ul {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 60px;                 
+  padding: 14px 20px;
+  list-style: none;
+  justify-content: center;
+}
+
+.principal-navbar-categories li {
+  cursor: pointer;
+  font-size: 16px;
+  color: #111;
+  padding: 10px 22px;        
+  border-radius: 20px;        
+  transition: all 0.25s ease;
+}
+
+.principal-navbar-categories li:hover {
+  background: rgba(0,0,0,0.08); 
+}
+
+/* ======== BUSCADOR MÓVIL ======== */
+.mobile-only {
+  display: none;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
     display: flex;
+    gap: 8px;
     justify-content: center;
+    padding: 12px 20px;
   }
+  .principal-navbar-categories {
+    display: none;
+  }
+}
 
-  .navbar-search input {
-    width: 80%;
-    max-width: 250px;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-  }
 
-  .navbar-search button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-  }
-
-  /* Íconos a la derecha */
-  .navbar-icons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.8rem;
-    flex: 0; /* no ocupa espacio extra */
-  }
-
-  .navbar-icons .icon {
-    height: 30px;
-  }
-
-  /* Categorías debajo del buscador, deslizable */
-  .navbar-categories {
-    order: 3;
-    margin-top: 0.5rem;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 0.5rem 0;
-  }
-
-  .navbar-categories ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0 0.5rem;
-    gap: 0.4rem;
-    justify-content: flex-start;
-  }
-
-  .navbar-categories li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    padding: 0.3rem 0.7rem;
-    border-radius: 20px;
-    white-space: nowrap;
-    font-size: 0.85rem;
-    transition: all 0.3s ease;
-  }
-
-  .navbar-categories li a:hover {
-    color: white;
-    background-color: #180ed8;
-  }
+.principal-navbar,
+.principal-navbar-top {
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
-  .navbar-logo img {
-    height: 25px; /* logo más pequeño */
-  }
-
-  .navbar-search input {
-    width: 90%;
-    max-width: 220px;
-    font-size: 0.85rem;
-  }
-
-  .navbar-search button {
-    font-size: 0.85rem;
-    padding: 0.35rem 0.7rem;
-  }
-
-  .navbar-icons .icon {
-    height: 28px;
-  }
-}
-
-@media (max-width: 480px) {
-  /* Navbar Top: logo a la izquierda, íconos a la derecha */
-  .navbar-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 0.3rem 0.5rem;
-  }
-
-  /* Logo más pequeño */
-  .navbar-logo img {
-    height: 20px;
-  }
-
-  /* Buscador debajo de la fila superior */
-  .navbar-search {
-    width: 100%;
-    order: 2; /* debajo de logo + iconos */
-    margin: 0.5rem 0 1.2rem 0; /* margen inferior mayor para separar de categorías */
-    display: flex;
-    justify-content: center;
-  }
-
-  .navbar-search input {
-    width: 90%;
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .navbar-search button {
-    font-size: 0.8rem;
-    padding: 0.35rem 0.7rem;
-  }
-
-  /* Iconos siempre visibles a la derecha en la fila superior */
-  .navbar-icons {
-    order: 1; /* arriba en la fila */
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    flex: 0;
-  }
-
-  .navbar-icons .icon {
-    height: 25px;
-  }
-
-  /* Categorías deslizable debajo del buscador */
-  .navbar-categories {
-    order: 3; /* debajo del buscador */
-    margin-top: 3.5rem; /* más espacio para que no se vea encima del buscador */
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 0.3rem 0;
-  }
-
-  .navbar-categories ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0 0.3rem;
-    gap: 0.3rem;
-    justify-content: flex-start;
-  }
-
-  .navbar-categories li a {
-    font-size: 0.8rem;
-    padding: 0.25rem 0.6rem;
+  .principal-navbar-top {
+    padding: 10px 14px;
   }
 }
 
 
-/* ==================== Productos ==================== */
+
+/* ======== BUSCADOR MÓVIL FIJO ======== */
+.principal-mobile-search {
+  position: fixed;
+  top: 65px;                 /* Pequeña separación desde el navbar */
+  left: 0;
+  width: 100%;
+  padding: 10px 15px;
+  background: white;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  z-index: 9998;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e5e5e5; /* Delimitación sutil */
+}
+
+.principal-mobile-search input {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 15px;
+  border: 1px solid #cfcfcf;
+  border-radius: 30px;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.principal-mobile-search input:focus {
+  border-color: #180ED8;
+}
+
+.principal-mobile-search button {
+  padding: 10px 20px;
+  background: #180ED8;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.principal-mobile-search button:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+/* Solo visible en móviles */
+@media (min-width: 901px) {
+  .principal-mobile-search {
+    display: none;
+  }
+}
+
+
+
+/* ==================== CONTENEDOR GENERAL ==================== */
 .productos {
   padding: 2rem 1rem;
   text-align: center;
+  background: #ffffff;
+  max-width: 1400px;
+  margin: 0 auto; /* 🔥 evita scroll lateral */
 }
 
+/* ==================== TÍTULO ==================== */
 .productos h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+  position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #111;
 }
 
-/* Grid con 5 columnas fijas en desktop */
+/* Línea azul debajo del título */
+.productos h2::after {
+  content: "";
+  display: block;
+  width: 60px;         /* 🔥 línea más pequeña */
+  height: 5px;
+  background: #007bff;
+  margin: 8px auto 0 auto;  /* centrada */
+  border-radius: 20px;
+}
+
+/* ==================== GRID ==================== */
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1.5rem;
-  justify-content: center; /* centra las tarjetas si hay menos de 5 */
+  justify-items: center;
+  width: 100%;
+  overflow: hidden; /* 🔥 evita overflow horizontal */
 }
 
-/* Tarjeta con tamaño fijo */
+/* ==================== TARJETA ==================== */
 .producto-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+
+  width: 100%;
+  max-width: 220px;
+  height: 310px; /* 🔥 todas iguales */
   padding: 1rem;
-  height: 320px; /* mismo tamaño para todas */
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  max-width: 220px; /* tamaño “normal” de tarjeta */
-  margin: 0 auto;   /* centra la tarjeta si no hay 5 */
+  align-items: center;
+  text-align: center;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .producto-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* Imagen cuadrada y uniforme */
+/* ==================== IMAGEN ==================== */
 .producto-card img {
   width: 100%;
-  height: 180px;
+  height: 150px;          /* 🔥 imágenes más pequeñas */
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 0.8rem;
+  transition: transform 0.25s ease;
 }
 
-/* Título */
+/* Zoom al pasar el mouse */
+.producto-card:hover img {
+  transform: scale(1.08);
+}
+
+/* ==================== TÍTULO DEL PRODUCTO ==================== */
 .producto-card h3 {
-  font-size: 1.05rem;
-  margin-bottom: 0.2rem;
+  font-size: 1rem;
+  margin: 0.6rem 0 0.4rem;
+  color: #222;
   height: 40px;
+  line-height: 1.2rem;
   overflow: hidden;
 }
 
-/* Precio */
+/* ==================== PRECIO ==================== */
 .producto-card p {
   font-size: 1rem;
   color: #180ed8;
   font-weight: bold;
+  margin-top: auto; /* baja el precio siempre al mismo nivel */
 }
 
-@media screen and (max-width: 480px) {
+/* ==================== BOTÓN ==================== */
+.btn-detalle {
+  margin-top: 10px;
+  padding: 0.6rem 1rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.btn-detalle:hover {
+  background: #222;
+}
+
+/* ==================== RESPONSIVE DESKTOP MEDIANO ==================== */
+@media screen and (max-width: 1200px) {
   .productos-grid {
-    grid-template-columns: 1fr;  /* 1 tarjeta por fila */
-    gap: 1rem;                   /* espacio entre tarjetas */
-    padding: 0 1rem;             /* margen lateral para que no se peguen a la pantalla */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ==================== RESPONSIVE TABLET ==================== */
+@media screen and (max-width: 1024px) {
+  .productos-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==================== TABLET PEQUEÑA ==================== */
+@media screen and (max-width: 768px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .producto-card {
-    width: 95%;                  /* ancho de la tarjeta */
-    max-width: 400px;            /* límite máximo */
-    height: 400px;               /* altura más larga */
-    padding: 1rem;               /* espacio interno */
-    margin: 0 auto;              /* centra la tarjeta */
+    max-width: 260px;
   }
 
   .producto-card img {
-    height: 250px;               /* imagen proporcional a la tarjeta */
-  }
-
-  .producto-card h3 {
-    font-size: 1.05rem;
-    height: 38px;                /* asegura que los títulos no colapsen */
-  }
-
-  .producto-card p {
-    font-size: 1rem;
+    height: 160px;
   }
 }
 
+/* ==================== RESPONSIVE MÓVIL ==================== */
+@media screen and (max-width: 480px) {
+  .productos {
+    padding: 1.5rem 1rem;
+  }
 
+  .productos h2 {
+    font-size: 1.7rem;
+  }
 
+  .productos h2::after {
+    width: 50px;
+    height: 3px;
+  }
+
+  .productos-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    justify-items: center;
+  }
+
+  .producto-card {
+    max-width: 330px;
+    height: auto;
+  }
+
+  .producto-card img {
+    height: 170px;
+  }
+
+  .producto-card h3 {
+    height: auto;
+  }
+
+  .producto-card p {
+    font-size: 1.15rem;
+  }
+}
 
 
 /* Banner principal */
@@ -996,4 +1080,122 @@
 }
 
 
+/* Contenedor principal del carrusel */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px; /* ajustable */
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 10px; /* opcional */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
+/* Slider con todas las imágenes */
+.carousel-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+/* Cada imagen del carrusel */
+.carousel-image {
+  min-width: 100%;
+  object-fit: cover;
+  height: 300px; /* puedes ajustar según tu diseño */
+}
+
+/* Botones de navegación */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.4);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background-color 0.3s;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(0,0,0,0.6);
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .carousel-image {
+    height: 200px;
+  }
+  .carousel-btn {
+    font-size: 1.5rem;
+    padding: 8px 12px;
+  }
+}
+
+
+/* =====================================
+   NAVBAR INFERIOR (SOLO CELULAR)
+===================================== */
+
+.mobile-bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px; /* 🔥 altura real */
+
+  background: #ffffff;
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+
+  border-top: 1px solid #ddd;
+  z-index: 9999;
+}
+
+.bottom-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+}
+
+.bottom-btn .icon {
+  font-size: 22px;
+  margin-bottom: 2px;
+}
+
+/* SOLO CELULAR */
+@media (max-width: 768px) {
+  .mobile-bottom-navbar {
+    display: flex;
+  }
+}
+
+
+/* =====================================
+   ESPACIO PARA NAVBAR INFERIOR (SOLO CELULAR)
+===================================== */
+
+@media (max-width: 768px) {
+  .principal-container,
+  .principal-page,
+  .perfil-page,
+  main {
+    padding-bottom: 80px; /* 🔥 mismo alto del navbar */
+  }
+}

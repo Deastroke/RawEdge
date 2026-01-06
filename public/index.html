@@ -6,11 +6,21 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="RawEdge - Tienda en línea de moda" />
 
-   <link rel="icon" href="/raw.jpg" />
-<link rel="apple-touch-icon" href="/raw.jpg" />
-<link rel="manifest" href="/manifest.json?v=20" />
+    <link rel="icon" href="/raw.jpg" />
+    <link rel="apple-touch-icon" href="/raw.jpg" />
+    <link rel="manifest" href="/manifest.json?v=20" />
 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/serviceworker.js")
+            .then(() => console.log("SW registrado"))
+            .catch(err => console.log("Error registrando SW:", err));
+        });
+      }
+    </script>
 
     <title>RawEdge | Tienda Online</title>
   </head>

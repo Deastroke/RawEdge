@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./principal.css";
 import logo from "./assets/RawEdge.png";
 import carrito from "./assets/cart.png";
 import perfil from "./assets/user.png";
-import oferta from "./assets/ofertas.jpg";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
+import {
+  AiFillHome,
+  AiOutlineAppstore,
+  AiOutlineShoppingCart,
+  AiOutlineUser,
+} from "react-icons/ai";
 
 import hombreIcon from "./assets/hombre.png";
 import mujerIcon from "./assets/mujer.png";
@@ -17,20 +23,41 @@ import playstor from "./assets/playstore.png";
 import appstore from "./assets/appstore.png";
 import faceboke from "./assets/facebooke.png";
 
-
 import bannerHombre from "./assets/bannerhombre.jpg";
 import bannerMujer from "./assets/bannermujer.jpg";
 import bannerAccesorios from "./assets/banneraccesorios.jpg";
 import bannerOfertas from "./assets/bannerofertas.jpg";
 import bannerNuevo from "./assets/bannernuevo.jpg";
 
+const bannersPorCategoria = {
+  Todos: [
+    bannerHombre,
+    bannerMujer,
+    bannerAccesorios,
+    bannerOfertas,
+    bannerNuevo,
+  ],
+  Hombre: [bannerHombre],
+  Mujer: [bannerMujer],
+  Accesorios: [bannerAccesorios],
+  Ofertas: [bannerOfertas],
+  Nuevo: [bannerNuevo],
+};
 
 function Principal() {
   const [productos, setProductos] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
-  const [busqueda, setBusqueda] = useState(""); // 🔍 Estado para el buscador
+  const [busqueda, setBusqueda] = useState("");
+  const [menuOpen, setMenuOpen] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Cargar productos desde el backend
+  const navigate = useNavigate();
+
+  const toggleMenu = (menu) => {
+    setMenuOpen(menuOpen === menu ? null : menu);
+  };
+
+  // Cargar productos solo una vez
   useEffect(() => {
     axios
       .get("https://rawedge-backend.onrender.com/api/productos")
@@ -38,73 +65,190 @@ function Principal() {
       .catch((err) => console.log("Error al obtener productos:", err));
   }, []);
 
-  // Filtrado por categoría y búsqueda
+  // Filtrar productos
   const productosFiltrados = productos
     .filter((p) =>
       categoriaSeleccionada === "Todos" ? true : p.categoria === categoriaSeleccionada
     )
-    .filter((p) =>
-      p.nombre.toLowerCase().includes(busqueda.toLowerCase())
-    );
+    .filter((p) => p.nombre.toLowerCase().includes(busqueda.toLowerCase()));
 
-  return (
-    <div className="principal-container">
-      {/* NAVBAR */}
-      <nav className="navbar-principal">
-        <div className="navbar-top">
-          <div className="navbar-logo">
-            <img src={logo} alt="Logo RawEdge" />
-          </div>
+  // 🔥 Memoizar banners para evitar re-render innecesario
+  const bannersActuales = useMemo(() => {
+    return bannersPorCategoria[categoriaSeleccionada] || bannersPorCategoria["Todos"];
+  }, [categoriaSeleccionada]);
 
-          {/* 🔎 Buscador */}
-          <div className="navbar-search">
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
-            />
-            <button onClick={() => setBusqueda("")}>Limpiar</button>
-          </div>
+  // Reinicia el carrusel al cambiar de categoría
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [categoriaSeleccionada]);
 
-          <div className="navbar-icons">
-            <Link to="/carrito">
-              <img src={carrito} alt="Carrito" className="icon" />
-            </Link>
-            <Link to="/perfil">
-              <img src={perfil} alt="Perfil" className="icon" />
-            </Link>
-          </div>
-        </div>
+  // Autoplay estable sin refrescos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % bannersActuales.length);
+    }, 4000);
 
-        {/* Categorías */}
-        <div className="navbar-categories"> 
-          <ul>
-            <li onClick={() => setCategoriaSeleccionada("Todos")}>Todos</li>
-            <li onClick={() => setCategoriaSeleccionada("Hombre")}>Hombre</li>
-            <li onClick={() => setCategoriaSeleccionada("Mujer")}>Mujer</li>
-            <li onClick={() => setCategoriaSeleccionada("Accesorios")}>Accesorios</li>
-            <li onClick={() => setCategoriaSeleccionada("Ofertas")}>Ofertas</li>
-            <li onClick={() => setCategoriaSeleccionada("Nuevo")}>Nuevo</li>
-          </ul>
-        </div>
-      </nav>
+    return () => clearInterval(interval);
+  }, [bannersActuales.length]);
 
-      {/* BANNER */}
-      <div className="principal-content">
-        <img
-          src={{
-            Todos: oferta,
-            Hombre: bannerHombre,
-            Mujer: bannerMujer,
-            Accesorios: bannerAccesorios,
-            Ofertas: bannerOfertas,
-            Nuevo: bannerNuevo,
-          }[categoriaSeleccionada] || oferta}
-          alt={`Banner ${categoriaSeleccionada}`}
-          className="oferta-banner"
-        />
+
+  // Botón siguiente
+const nextSlide = () => {
+  setCurrentIndex((prev) => (prev + 1) % bannersActuales.length);
+};
+
+// Botón anterior
+const prevSlide = () => {
+  setCurrentIndex((prev) => (prev - 1 + bannersActuales.length) % bannersActuales.length);
+};
+
+const handleSearch = () => {
+  if (!busqueda.trim()) return;
+  navigate(`/buscar/${busqueda}`);
+};
+
+return (
+  <div className="principal-container">
+
+  {/* NAVBAR PRINCIPAL */}
+  <nav className="principal-navbar">
+    <div className="principal-navbar-top">
+
+      {/* LOGO IZQUIERDA */}
+      <div className="principal-navbar-logo">
+        <Link to="/principal">
+          <img src={logo} alt="Logo RawEdge" />
+        </Link>
       </div>
+
+      {/* 🔎 BUSCADOR SOLO PC */}
+      <div className="principal-navbar-search desktop-only">
+        <input
+          type="text"
+          placeholder="Buscar productos..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSearch();
+            }
+          }}
+        />
+        <button type="button" onClick={handleSearch}>Buscar</button>
+      </div>
+
+      {/* ICONOS DERECHA */}
+      <div className="principal-navbar-icons">
+        <Link to="/carrito">
+          <img src={carrito} alt="Carrito" className="icon" />
+        </Link>
+        <Link to="/perfil">
+          <img src={perfil} alt="Perfil" className="icon" />
+        </Link>
+      </div>
+
+    </div>
+
+    {/* CATEGORÍAS */}
+    <div className="principal-navbar-categories">
+      <ul>
+        <li onClick={() => setCategoriaSeleccionada("Todos")}>Todos</li>
+        <li onClick={() => setCategoriaSeleccionada("Hombre")}>Hombre</li>
+        <li onClick={() => setCategoriaSeleccionada("Mujer")}>Mujer</li>
+        <li onClick={() => setCategoriaSeleccionada("Accesorios")}>Accesorios</li>
+        <li onClick={() => setCategoriaSeleccionada("Ofertas")}>Ofertas</li>
+        <li onClick={() => setCategoriaSeleccionada("Nuevo")}>Nuevo</li>
+      </ul>
+    </div>
+  </nav>
+
+  {/* 🔎 BUSCADOR SOLO MÓVIL */}
+  <div className="principal-mobile-search mobile-only">
+    <input
+      type="text"
+      placeholder="Buscar productos..."
+      value={busqueda}
+      onChange={(e) => setBusqueda(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          handleSearch();
+        }
+      }}
+    />
+    <button type="button" onClick={handleSearch}>Buscar</button>
+  </div>
+
+
+
+
+
+  {/* NAVBAR INFERIOR SOLO PARA CELULAR */}
+<div className="mobile-bottom-navbar">
+
+  <button className="bottom-btn" onClick={() => setCategoriaSeleccionada("Todos")}>
+    <AiFillHome className="icon" />
+    <span>Home</span>
+  </button>
+
+  <button className="bottom-btn" onClick={() => toggleMenu("categorias")}>
+    <AiOutlineAppstore className="icon" />
+    <span>Categorías</span>
+  </button>
+
+  <button className="bottom-btn" onClick={() => navigate("/carrito")}>
+    <AiOutlineShoppingCart className="icon" />
+    <span>Carrito</span>
+  </button>
+
+  <button className="bottom-btn" onClick={() => toggleMenu("perfil")}>
+    <AiOutlineUser className="icon" />
+    <span>Perfil</span>
+  </button>
+
+  {/* SUBMENÚ CATEGORÍAS */}
+  {menuOpen === "categorias" && (
+    <div className="bottom-submenu">
+      <button onClick={() => setCategoriaSeleccionada("Todos")}>Todos</button>
+      <button onClick={() => setCategoriaSeleccionada("Hombre")}>Hombre</button>
+      <button onClick={() => setCategoriaSeleccionada("Mujer")}>Mujer</button>
+      <button onClick={() => setCategoriaSeleccionada("Accesorios")}>Accesorios</button>
+      <button onClick={() => setCategoriaSeleccionada("Ofertas")}>Ofertas</button>
+      <button onClick={() => setCategoriaSeleccionada("Nuevo")}>Nuevo</button>
+    </div>
+  )}
+
+  {/* SUBMENÚ PERFIL */}
+  {menuOpen === "perfil" && (
+    <div className="bottom-submenu right">
+      <button onClick={() => navigate("/perfil")}>Mi perfil</button>
+      <button onClick={() => navigate("/login")}>Iniciar Sesión</button>
+    </div>
+  )}
+</div>
+
+ 
+
+
+    <div className="principal-content">
+
+  <div className="carousel-container">
+    <div
+      className="carousel-slider"
+      style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+    >
+      {bannersActuales.map((img, i) => (
+        <img key={i} src={img} className="carousel-image" />
+      ))}
+    </div>
+
+    <button className="carousel-btn left" onClick={prevSlide}>❮</button>
+    <button className="carousel-btn right" onClick={nextSlide}>❯</button>
+  </div>
+
+</div>
+
 
       {/* PRODUCTOS DESTACADOS */}
       <div className="productos">
@@ -141,28 +285,43 @@ function Principal() {
 
 
 
-      {/* CATEGORÍAS */}
-      <section className="categorias-section">
-        <h2 className="categorias-title">Categorías</h2>
-        <div className="categorias-container">
-          <div className="categoria-card" onClick={() => setCategoriaSeleccionada("Hombre")}>
-            <img src={hombreIcon} alt="Hombre" className="categoria-icon" />
-            <p>Hombre</p>
-          </div>
-          <div className="categoria-card" onClick={() => setCategoriaSeleccionada("Mujer")}>
-            <img src={mujerIcon} alt="Mujer" className="categoria-icon" />
-            <p>Mujer</p>
-          </div>
-          <div className="categoria-card" onClick={() => setCategoriaSeleccionada("Accesorios")}>
-            <img src={accesoriosIcon} alt="Accesorios" className="categoria-icon" />
-            <p>Accesorios</p>
-          </div>
-          <div className="categoria-card" onClick={() => setCategoriaSeleccionada("Ofertas")}>
-            <img src={ofertasIcon} alt="Ofertas" className="categoria-icon" />
-            <p>Ofertas</p>
-          </div>
-        </div>
-      </section>
+{/* CATEGORÍAS */}
+<section className="categorias-section">
+  <h2 className="categorias-title">Explora por Categorías</h2>
+
+  <div className="categorias-container">
+
+    <div className="categoria-card" onClick={() => setCategoriaSeleccionada("Hombre")}>
+      <div className="categoria-icon-circle">
+        <img src={hombreIcon} alt="Hombre" className="categoria-icon" />
+      </div>
+      <p>Hombre</p>
+    </div>
+
+    <div className="categoria-card" onClick={() => setCategoriaSeleccionada("Mujer")}>
+      <div className="categoria-icon-circle">
+        <img src={mujerIcon} alt="Mujer" className="categoria-icon" />
+      </div>
+      <p>Mujer</p>
+    </div>
+
+    <div className="categoria-card" onClick={() => setCategoriaSeleccionada("Accesorios")}>
+      <div className="categoria-icon-circle">
+        <img src={accesoriosIcon} alt="Accesorios" className="categoria-icon" />
+      </div>
+      <p>Accesorios</p>
+    </div>
+
+    <div className="categoria-card" onClick={() => setCategoriaSeleccionada("Ofertas")}>
+      <div className="categoria-icon-circle">
+        <img src={ofertasIcon} alt="Ofertas" className="categoria-icon" />
+      </div>
+      <p>Ofertas</p>
+    </div>
+
+  </div>
+</section>
+
 
 {/* PRODUCTOS RESTANTES */}
 <div className="productos">
@@ -173,7 +332,15 @@ function Principal() {
         .slice(15) // ignoramos los 15 de destacados
         .map((p) => (
           <div className="producto-card" key={p._id}>
-            <img src={p.imagen || "https://via.placeholder.com/200"} alt={p.nombre} />
+          <img
+  src={
+    p.imagen
+      ? `https://rawedge-backend.onrender.com/uploads/${p.imagen}`
+      : "https://via.placeholder.com/200"
+  }
+  alt={p.nombre}
+/>
+
             <h3>{p.nombre}</h3>
             <p>${p.precio} MXN</p>
             <Link to={`/producto/${p._id}`}>

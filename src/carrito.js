@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./principal.css";
 import logo from "./assets/RawEdge.png";
+import carrito from "./assets/cart.png";
 import perfil from "./assets/user.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Asegúrate de importarlo
@@ -11,6 +12,7 @@ import playstor from "./assets/playstore.png";
 import appstore from "./assets/appstore.png";
 import faceboke from "./assets/facebooke.png";
 import iconEliminar from "./assets/bin.png"; // ajusta la ruta según tu proyecto
+import { AiFillHome, AiOutlineAppstore, AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 
 
 function Carrito() {
@@ -19,8 +21,10 @@ function Carrito() {
   const [productos, setProductos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [seleccionados, setSeleccionados] = useState([]);
-  const navigate = useNavigate();
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Nuevos");
+ 
   
+
 
   // =============================
   // Cargar carrito
@@ -155,35 +159,125 @@ function Carrito() {
     localStorage.setItem("totalSeleccionado", total);
   }, [seleccionadosDetalles, total]);
 
-  return (
-    <div className="principal-container">
+  const toggleMenu = (menu) => {
+    setMenuOpen(menuOpen === menu ? null : menu);
+  };
+  
+  const [menuOpen, setMenuOpen] = useState(null);
+  const navigate = useNavigate();
+  
+    const handleSearch = () => {
+    console.log("Buscando...");
+  };
 
-      {/* NAVBAR */}
-      <nav className="navbar-principal">
-        <div className="navbar-top">
-          <div className="navbar-logo">
-            <Link to="/principal">
-              <img src={logo} alt="Logo RawEdge" />
-            </Link>
-          </div>
+  
+return (
+   <div className="principal-container">
+ 
+   {/* NAVBAR PRINCIPAL */}
+   <nav className="principal-navbar">
+     <div className="principal-navbar-top">
+ 
+       {/* LOGO IZQUIERDA */}
+       <div className="principal-navbar-logo">
+         <Link to="/principal">
+           <img src={logo} alt="Logo RawEdge" />
+         </Link>
+       </div>
+ 
+       {/* 🔎 BUSCADOR SOLO PC */}
+       <div className="principal-navbar-search desktop-only">
+         <input
+           type="text"
+           placeholder="Buscar productos..."
+           value={busqueda}
+           onChange={(e) => setBusqueda(e.target.value)}
+           onKeyDown={(e) => {
+             if (e.key === "Enter") {
+               e.preventDefault();
+               handleSearch();
+             }
+           }}
+         />
+         <button type="button" onClick={handleSearch}>Buscar</button>
+       </div>
+ 
+       {/* ICONOS DERECHA */}
+       <div className="principal-navbar-icons">
+         <Link to="/carrito">
+           <img src={carrito} alt="Carrito" className="icon" />
+         </Link>
+         <Link to="/perfil">
+           <img src={perfil} alt="Perfil" className="icon" />
+         </Link>
+       </div>
+ 
+     </div>
+ 
+     {/* CATEGORÍAS */}
+     <div className="principal-navbar-categories">
+       <ul>
+         <li onClick={() => setCategoriaSeleccionada("Todos")}>Todos</li>
+         <li onClick={() => setCategoriaSeleccionada("Hombre")}>Hombre</li>
+         <li onClick={() => setCategoriaSeleccionada("Mujer")}>Mujer</li>
+         <li onClick={() => setCategoriaSeleccionada("Accesorios")}>Accesorios</li>
+         <li onClick={() => setCategoriaSeleccionada("Ofertas")}>Ofertas</li>
+         <li onClick={() => setCategoriaSeleccionada("Nuevo")}>Nuevo</li>
+       </ul>
+     </div>
+   </nav>
+ 
+   {/* 🔎 BUSCADOR SOLO MÓVIL */}
+   <div className="principal-mobile-search mobile-only">
+     <input
+       type="text"
+       placeholder="Buscar productos..."
+       value={busqueda}
+       onChange={(e) => setBusqueda(e.target.value)}
+       onKeyDown={(e) => {
+         if (e.key === "Enter") {
+           e.preventDefault();
+           handleSearch();
+         }
+       }}
+     />
+     <button type="button" onClick={handleSearch}>Buscar</button>
+   </div>
+ 
 
-          <div className="navbar-search">
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
-            />
-            <button onClick={() => setBusqueda("")}>Limpiar</button>
-          </div>
-
-          <div className="navbar-icons">
-            <Link to="/perfil">
-              <img src={perfil} alt="Perfil" className="icon" />
-            </Link>
-          </div>
-        </div>
-      </nav>
+  
+   {/* NAVBAR INFERIOR SOLO PARA CELULAR */}
+  <div className="mobile-bottom-navbar">
+  
+    <button className="bottom-btn" onClick={() => navigate("/principal")}>
+      <AiFillHome className="icon" />
+      <span>Home</span>
+    </button>
+  
+    <button 
+      className="bottom-btn" 
+      onClick={() => {
+        setCategoriaSeleccionada("Nuevo");  // ← Selecciona categoría
+        navigate("/principal");             // ← Estaba mal escrito
+      }}
+    >
+      <AiOutlineAppstore className="icon" />
+      <span>Categorías</span>
+    </button>
+  
+    <button className="bottom-btn" onClick={() => navigate("/carrito")}>
+      <AiOutlineShoppingCart className="icon" />
+      <span>Carrito</span>
+    </button>
+  
+    <button className="bottom-btn" onClick={() => navigate("/perfil")}>
+      <AiOutlineUser className="icon" />
+      <span>Perfil</span>
+    </button>
+  
+  </div>
+  
+  
 
       {/* =============================
           CONTENIDO PRINCIPAL

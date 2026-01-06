@@ -6,7 +6,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // Imágenes y videos
 import logo from "./assets/RawEdge.png";
-import ropa from "./assets/ropa.jpg";
 import ropamoda from "./assets/ropademoda.png";
 import accesorios from "./assets/accesorios.jpg";
 import promociones from "./assets/promociones.jpg";
@@ -25,6 +24,7 @@ import video from "./assets/moda.mp4";
 
 
 // Componentes 
+
 import Pago from "./pages/Pago.jsx";
 import ForgotPassword from "./ForgotPassword.jsx";
 import ResetPassword from "./ResetPassword.jsx";
@@ -35,12 +35,10 @@ import Principal from "./principal.js";
 import Perfil from "./perfil.js";
 import Carrito from "./carrito.js";
 import ProductoDetalle from "./productodetalle.js";
-import NavbarGlobal from "./navbarglobal.js";
-import PagoTarjeta from "./pago.js";
 import FormularioEnvio from "./envio.js";
 import PanelRawEdge123xyz from "./panel-rawedge-123xyz";
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 
 
 
@@ -53,6 +51,7 @@ if ("serviceWorker" in navigator) {
       .catch((err) => console.log("❌ Error registrando SW:", err));
   });
 }
+
 
 
 
@@ -112,6 +111,26 @@ function Home() {
     };
   }, []);
 
+  useEffect(() => {
+  const counters = document.querySelectorAll(".count");
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute("data-target");
+      const count = +counter.innerText;
+      const increment = target / 200;
+
+      if(count < target) {
+        counter.innerText = Math.ceil(count + increment);
+        requestAnimationFrame(updateCount);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCount();
+  });
+}, []);
+
+  
   return (
     <>
       {/* Botón de instalación */}
@@ -119,77 +138,128 @@ function Home() {
         Instalar RawEdge
       </button>
 
-      {/* Navbar */}
-      <Navbar />
+<>
+  <Navbar />
 
-      {/* HERO */}
-      <div id="inicio" className="hero" style={{ backgroundImage: `url(${ropa})` }}>
-        <div className="hero-content">
-          <h2>Bienvenido a RawEdge</h2>
-          <p>Ropa urbana y moderna para todos los estilos</p>
+  <section id="inicio" className="hero">
+    <div className="overlay"></div>
+
+    <div className="hero-content">
+      <h2>Bienvenido a RawEdge</h2>
+      <p>Ropa urbana y moderna para todos los estilos</p>
+
+      {/* Estadísticas */}
+      <div className="stats">
+        <div className="stat">
+          <h2 className="count" data-target="1200">0</h2>
+          <p>Prendas</p>
+        </div>
+        <div className="stat">
+          <h2 className="count" data-target="500">0</h2>
+          <p>Clientes satisfechos</p>
+        </div>
+        <div className="stat">
+          <h2 className="count" data-target="100">0</h2>
+          <p>Envíos entregados</p>
         </div>
       </div>
+    </div>
+  </section>
+</>
 
 
-      {/* Sección Servicios */}
-      <section id="servicios" className="services-section">
-        <h2>Nuestros Servicios</h2>
-        <div className="services-cards">
-          <div className="service-card">
-            <h3>Ropa de Moda</h3>
-            <img src={ropamoda} alt="Ropa de Moda" className="service-img" />
-            <p>
-              Encuentra las últimas tendencias en ropa urbana y moderna. Desde camisetas y sudaderas hasta pantalones y chamarras, pensadas para que siempre luzcas con estilo.
-            </p>
-            <button className="service-btn">Ver más</button>
-          </div>
 
-          <div className="service-card">
-            <h3>Accesorios</h3>
-            <img src={accesorios} alt="Accesorios" className="service-img" />
-            <p>
-              Gorras, mochilas, cadenas y más detalles que completan tu outfit. Porque la diferencia está en los accesorios.
-            </p>
-            <button className="service-btn">Ver más</button>
-          </div>
+<section id="servicios" className="services-section">
+  <h2>Nuestros Servicios</h2>
+  <div className="services-cards">
 
-          <div className="service-card">
-            <h3>Promociones</h3>
-            <img src={promociones} alt="Promociones" className="service-img" />
-            <p>
-              Ofertas exclusivas y descuentos en nuestras prendas más populares. Vestirse bien nunca fue tan accesible.
-            </p>
-            <button className="service-btn">Ver más</button>
-          </div>
+    <div className="service-card">
+      <h3>Ropa de Moda</h3>
+      <img src={ropamoda} alt="Ropa de Moda" className="service-img" />
+      <p>
+        Encuentra las últimas tendencias en ropa urbana y moderna. Desde camisetas y sudaderas hasta pantalones y chamarras, pensadas para que siempre luzcas con estilo.
+      </p>
+      <button 
+        className="service-btn" 
+        onClick={() => alert("Regístrate para ver más")}
+      >
+        Ver más
+      </button>
+    </div>
 
-          <div className="service-card">
-            <h3>Paquetería</h3>
-            <img src={paqueteria} alt="Paquetería" className="service-img" />
-            <p>
-              Recibe tus pedidos en la comodidad de tu hogar. Contamos con envíos rápidos y seguros a todo el país, con rastreo en tiempo real.
-            </p>
-            <button className="service-btn">Ver más</button>
-          </div>
+    <div className="service-card">
+      <h3>Accesorios</h3>
+      <img src={accesorios} alt="Accesorios" className="service-img" />
+      <p>
+        Gorras, mochilas, cadenas y más detalles que completan tu outfit. Porque la diferencia está en los accesorios.
+      </p>
+      <button 
+        className="service-btn" 
+        onClick={() => alert("Regístrate para ver más")}
+      >
+        Ver más
+      </button>
+    </div>
 
-          <div className="service-card">
-            <h3>Pago con Tarjeta</h3>
-            <img src={pagoTarjeta} alt="Pago con Tarjeta" className="service-img" />
-            <p>
-              Compra en línea de manera fácil y segura. Aceptamos tarjetas de débito y crédito para que elijas la opción de pago que prefieras.
-            </p>
-            <button className="service-btn">Ver más</button>
-          </div>
+    <div className="service-card">
+      <h3>Promociones</h3>
+      <img src={promociones} alt="Promociones" className="service-img" />
+      <p>
+        Ofertas exclusivas y descuentos en nuestras prendas más populares. Vestirse bien nunca fue tan accesible.
+      </p>
+      <button 
+        className="service-btn" 
+        onClick={() => alert("Regístrate para ver más")}
+      >
+        Ver más
+      </button>
+    </div>
 
-          <div className="service-card">
-            <h3>Carrito de Compras</h3>
-            <img src={carrito} alt="Carrito de Compras" className="service-img" />
-            <p>
-              Guarda tus prendas favoritas mientras sigues explorando. Finaliza tu compra cuando quieras, sin perder lo que ya seleccionaste.
-            </p>
-            <button className="service-btn">Ver más</button>
-          </div>
-        </div>
-      </section>
+    <div className="service-card">
+      <h3>Paquetería</h3>
+      <img src={paqueteria} alt="Paquetería" className="service-img" />
+      <p>
+        Recibe tus pedidos en la comodidad de tu hogar. Contamos con envíos rápidos y seguros a todo el país, con rastreo en tiempo real.
+      </p>
+      <button 
+        className="service-btn" 
+        onClick={() => alert("Regístrate para ver más")}
+      >
+        Ver más
+      </button>
+    </div>
+
+    <div className="service-card">
+      <h3>Pago con Tarjeta</h3>
+      <img src={pagoTarjeta} alt="Pago con Tarjeta" className="service-img" />
+      <p>
+        Compra en línea de manera fácil y segura. Aceptamos tarjetas de débito y crédito para que elijas la opción de pago que prefieras.
+      </p>
+      <button 
+        className="service-btn" 
+        onClick={() => alert("Regístrate para ver más")}
+      >
+        Ver más
+      </button>
+    </div>
+
+    <div className="service-card">
+      <h3>Carrito de Compras</h3>
+      <img src={carrito} alt="Carrito de Compras" className="service-img" />
+      <p>
+        Guarda tus prendas favoritas mientras sigues explorando. Finaliza tu compra cuando quieras, sin perder lo que ya seleccionaste.
+      </p>
+      <button 
+        className="service-btn" 
+        onClick={() => alert("Regístrate para ver más")}
+      >
+        Ver más
+      </button>
+    </div>
+
+  </div>
+</section>
+
 
       {/* Sección Nosotros */}
       <section id="nosotros" className="about-section">
@@ -334,34 +404,29 @@ function Home() {
   );
 }
 
+
 function AppWrapper() {
-  const location = useLocation();
-
   return (
-      <>
-        {/* Mostrar navbar solo en la página de detalle del producto */}
-        {location.pathname.startsWith("/producto/") && <NavbarGlobal />}
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/producto/:id" element={<ProductoDetalle />} />  
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/crear-password/:userId" element={<CrearPassword />} />
-          <Route path="/principal" element={<Principal />} />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/carrito" element={<Carrito />} />
-          <Route path="/envio" element={<FormularioEnvio />} />
-          <Route path="/pago" element={<PagoTarjeta />} />
-          <Route path="/pago" element={<Pago />} />
-          <Route path="/forgot" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/panel-rawedge-123xyz" element={<PanelRawEdge123xyz />} />
-        </Routes>
-      </>
-  
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/producto/:id" element={<ProductoDetalle />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/crear-password/:userId" element={<CrearPassword />} />
+        <Route path="/principal" element={<Principal />} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/envio" element={<FormularioEnvio />} />
+        <Route path="/pago" element={<Pago />} />
+        <Route path="/forgot" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/panel-rawedge-123xyz" element={<PanelRawEdge123xyz />} />
+      </Routes>
+    </>
   );
 }
+
 
 
 function App() {

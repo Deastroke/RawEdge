@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./productodetalle.css";
+import { useNavigate } from "react-router-dom";
+import { AiFillHome, AiOutlineAppstore, AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 
+import logo from "./assets/RawEdge.png";
+import carrito from "./assets/cart.png";
+import perfil from "./assets/user.png";
 import instagram from "./assets/instagram.png";
 import whatsapp from "./assets/whatsapp.png";
 import Playstor from "./assets/playstore.png";
@@ -19,8 +24,18 @@ function ProductoDetalle() {
   const [coloresDisponibles, setColoresDisponibles] = useState([]);
   const [tallasDisponibles, setTallasDisponibles] = useState([]);
   const [cantidadDisponible, setCantidadDisponible] = useState(0);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
+  const navigate = useNavigate();
 
+  const [navbarHeight, setNavbarHeight] = useState(0); // 🔹 altura del navbar
   const usuarioId = localStorage.getItem("usuarioId");
+
+
+   // Captura la altura del navbar global
+  useEffect(() => {
+    const navbar = document.querySelector(".navbar-principal"); // 🔹 clase de tu NavbarGlobal
+    if (navbar) setNavbarHeight(navbar.offsetHeight);
+  }, []);
 
   // Cargar todos los productos
   useEffect(() => {
@@ -94,20 +109,74 @@ const similares = productos.filter(
 
 
   return (
-    <div className="detalle-container">
-      <div className="detalle-producto">
-        <div className="detalle-imagen">
-          <img 
-  src={`https://rawedge-backend.onrender.com/uploads/${producto.imagen}`}
-  onError={(e) => e.target.src = "https://via.placeholder.com/300"}
-  alt={producto.nombre}
-/>
 
+     <div className="detalle-page">
 
-
-
+    {/* NAVBAR PRODUCTO DETALLE */}
+    <nav className="producto-detalle-navbar">
+      <div className="producto-detalle-navbar-top">
+        <div className="producto-detalle-navbar-logo">
+          <Link to="/principal">
+            <img src={logo} alt="Logo RawEdge" />
+          </Link>
         </div>
 
+           {/* ICONOS DERECHA */}
+    <div className="perfil-navbar-icons" style={{ marginLeft: "auto" }}>
+      <Link to="/carrito">
+        <img src={carrito} alt="Carrito" className="icon" />
+      </Link>
+      <Link to="/perfil">
+        <img src={perfil} alt="Perfil" className="icon" />
+      </Link>
+    </div>
+      </div>
+    </nav>
+
+      <div className="detalle-container">
+        <div className="detalle-producto">
+          <div className="detalle-imagen">
+            <img
+              src={`https://rawedge-backend.onrender.com/uploads/${producto.imagen}`}
+              onError={(e) => e.target.src = "https://via.placeholder.com/300"}
+              alt={producto.nombre}
+            />
+          </div>
+  
+
+        
+       {/* NAVBAR INFERIOR SOLO PARA CELULAR */}
+         <div className="mobile-bottom-navbar">
+         
+           <button className="bottom-btn" onClick={() => navigate("/principal")}>
+             <AiFillHome className="icon" />
+             <span>Home</span>
+           </button>
+         
+           <button 
+             className="bottom-btn" 
+             onClick={() => {
+               setCategoriaSeleccionada("Nuevo");  // ← Selecciona categoría
+               navigate("/principal");             // ← Estaba mal escrito
+             }}
+           >
+             <AiOutlineAppstore className="icon" />
+             <span>Categorías</span>
+           </button>
+         
+           <button className="bottom-btn" onClick={() => navigate("/carrito")}>
+             <AiOutlineShoppingCart className="icon" />
+             <span>Carrito</span>
+           </button>
+         
+           <button className="bottom-btn" onClick={() => navigate("/perfil")}>
+             <AiOutlineUser className="icon" />
+             <span>Perfil</span>
+           </button>
+         
+         </div>
+         
+         
         <div className="detalle-info">
           <h2>{producto.nombre}</h2>
           <p className="descripcion">{producto.descripcion}</p>
@@ -154,6 +223,7 @@ const similares = productos.filter(
             </div>
           </div>
         </div>
+          
 
         <div className="detalle-compra">
 <p className="precio">
@@ -190,6 +260,7 @@ const similares = productos.filter(
       ))}
     </div>
   </div>
+
 )}
 
 
@@ -256,6 +327,7 @@ const similares = productos.filter(
         </div>
       </footer>
     </div>
+      </div>
   );
 }
 
